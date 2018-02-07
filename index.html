@@ -16,6 +16,11 @@
 				font-size: 18px;
 				font-weight: bolder;
 			}
+			[data-filter-disabled=true],
+			[data-filter-disabled=true] input {
+				background: #f1f1f1;
+				cursor: not-allowed;
+			}
 			[v-clock{ display: none; }]
 		</style>
     </head>
@@ -73,44 +78,44 @@
 	                        	<button type='button' class='btn btn-danger btn-sm float-right' @click='setToDefault()'><i class='fa fa-undo fa-fw'></i> Reset</button>
 	                        </div>
 	                        <div class="card-body row">
-	                            <div class="col-md-6">
+	                            <div class="col-md-6" :data-filter-disabled='!image'>
 	                                <div class="form-group p-0">
 	                                    <label>Grayscale ({{ filterFunctions.grayscale }})</label>
 	                                    <input type="range" class="form-control" step='0.1' min="0" max="1" v-model='filterFunctions.grayscale' :disabled='!image'>
 	                                </div>
 	                                <div class="form-group p-0">
 	                                    <label>Blur ({{ filterFunctions.blur }})</label>
-	                                    <input type="range" class="form-control" step='1' min="0" max="50" v-model='filterFunctions.blur'>
+	                                    <input type="range" class="form-control" step='1' min="0" max="50" v-model='filterFunctions.blur' :disabled='!image'>
 	                                </div>
 	                                <div class="form-group p-0">
 	                                    <label>Sepia ({{ filterFunctions.sepia }})</label>
-	                                    <input type="range" class="form-control" step='0.1' min="0" max="1" v-model='filterFunctions.sepia'>
+	                                    <input type="range" class="form-control" step='0.1' min="0" max="1" v-model='filterFunctions.sepia' :disabled='!image'>
 	                                </div>
 	                                <div class="form-group p-0">
 	                                    <label>Saturate ({{ filterFunctions.saturate }})</label>
-	                                    <input type="range" class="form-control" step='0.1' min="0" max="2" v-model='filterFunctions.saturate'>
+	                                    <input type="range" class="form-control" step='0.1' min="0" max="2" v-model='filterFunctions.saturate' :disabled='!image'>
 	                                </div>
 	                                <div class="form-group p-0">
 	                                    <label>Opacity ({{ filterFunctions.opacity }})</label>
-	                                    <input type="range" class="form-control" step='0.1' min="0" max="1" v-model='filterFunctions.opacity'>
+	                                    <input type="range" class="form-control" step='0.1' min="0" max="1" v-model='filterFunctions.opacity' :disabled='!image'>
 	                                </div>
 	                            </div>
-	                            <div class="col-md-6">
+	                            <div class="col-md-6" :data-filter-disabled='!image'>
 	                                <div class="form-group p-0">
 	                                    <label>Brightness ({{ filterFunctions.brightness }})</label>
-	                                    <input type="range" class="form-control" step='0.1' min="0" max="5" v-model='filterFunctions.brightness'>
+	                                    <input type="range" class="form-control" step='0.1' min="0" max="5" v-model='filterFunctions.brightness' :disabled='!image'>
 	                                </div>
 	                                <div class="form-group p-0">
 	                                    <label>Contrast ({{ filterFunctions.contrast }})</label>
-	                                    <input type="range" class="form-control" step='0.1' min="0" max="10" v-model='filterFunctions.contrast'>
+	                                    <input type="range" class="form-control" step='0.1' min="0" max="10" v-model='filterFunctions.contrast' :disabled='!image'>
 	                                </div>
 	                                <div class="form-group p-0">
 	                                    <label>Hue-rotate ({{ filterFunctions.hueRotate }})</label>
-	                                    <input type="range" class="form-control" step='1' min="0" max="360" v-model='filterFunctions.hueRotate'>
+	                                    <input type="range" class="form-control" step='1' min="0" max="360" v-model='filterFunctions.hueRotate' :disabled='!image'>
 	                                </div>
 	                                <div class="form-group p-0">
 	                                    <label>Invert ({{ filterFunctions.invert }})</label>
-	                                    <input type="range" class="form-control" step='0.1' min="0" max="2" v-model='filterFunctions.invert'>
+	                                    <input type="range" class="form-control" step='0.1' min="0" max="2" v-model='filterFunctions.invert' :disabled='!image'>
 	                                </div>
 	                            </div>
 	                        </div>
