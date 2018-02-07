@@ -11,7 +11,12 @@
 
         <title>Image filter with Vue.js and CSS3</title>
 		<style>
-		[v-clock{ display: none; }]
+			pre{
+				color: rgb(76, 186, 135);
+				font-size: 18px;
+				font-weight: bolder;
+			}
+			[v-clock{ display: none; }]
 		</style>
     </head>
   <body>
@@ -27,7 +32,7 @@
                 <div class="row">
                     <div class="col-md-10 offset-md-1 text-center my-5">
                         <h1 class="display-3">CSS3 Filter with Vue.js</h2>
-                        <h2 class="h4 mt-5">Syntax - <pre>.class-filter{ filter: &lt;filter-function&gt; [&lt;filter-function&gt;] }</pre></h2>
+                        <h2 class="h4 py-5">Syntax - <p> <code>.class-filter{ filter: &lt;filter-function&gt; [&lt;filter-function&gt;] }</code></p></h2>
                     </div>
 
                 </div>
@@ -43,15 +48,11 @@
                                 <div v-if="!image" class='form-group pt-3'>
 									<input type="file" @change="changeImage" class='form-control'>
 								</div>
-								<div v-else class='form-group'>
+								<div v-else class='form-group m-0'>
 									<button @click="image=null" class='btn btn-primary btn-sm'>New image</button>
 								</div>
 							</div>
-                        	<div class="card-body">
-                        		img: {<br>
-  								&nbsp;&nbsp;filter: {{filters.filter}}; <br>
-  								}
-                        	</div>
+
                         	<!-- Image -->
                         	<div v-show='image'>
                         		<img ref='img' crossOrigin="Anonymous" id='image' :src="image" class='card-img-top' :style='filters'>
@@ -60,6 +61,11 @@
                     </div>
 
 	                <div class="col-md-6 sticky-top">
+	                	<div class="card mb-2 bg-dark">
+            				<div class="card-body">
+                        		<pre>img: {<br>&nbsp;&nbsp;filter: {{filters.filter}}; <br>}</pre>
+            				</div>
+                		</div>
 	                    <div class="card">
 	                        <div class="card-header"><h5 class="card-title m-0">Adjust the filter</h5></div>
 	                        <div class="card-body row">
