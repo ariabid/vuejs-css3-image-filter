@@ -7,7 +7,7 @@
 
         <!-- Bootstrap CSS -->
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
-        <link href="//netdna.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+        <link href="https://netdna.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
 
         <title>Image filter with Vue.js and CSS3</title>
 		<style>
@@ -48,8 +48,9 @@
                                 <div v-if="!image" class='form-group pt-3'>
 									<input type="file" @change="changeImage" class='form-control'>
 								</div>
-								<div v-else class='form-group m-0'>
-									<button @click="image=null" class='btn btn-primary btn-sm'>New image</button>
+								<div v-else class='form-group m-0 clearfix'>
+									<button @click="image=null" class='btn btn-primary btn-sm'><i class='fa fa-file-image-o fa-fw'></i> New image</button>
+									<button class="btn btn-sm btn-success float-right" @click="download"><i class='fa fa-download fa-fw'></i> Download</button>
 								</div>
 							</div>
 
@@ -67,7 +68,10 @@
             				</div>
                 		</div>
 	                    <div class="card">
-	                        <div class="card-header"><h5 class="card-title m-0">Adjust the filter</h5></div>
+	                        <div class="card-header clearfix">
+	                        	<h5 class="card-title float-left m-0">Adjust the filter</h5>
+	                        	<button type='button' class='btn btn-danger btn-sm float-right' @click='setToDefault()'><i class='fa fa-undo fa-fw'></i> Reset</button>
+	                        </div>
 	                        <div class="card-body row">
 	                            <div class="col-md-6">
 	                                <div class="form-group p-0">
@@ -108,12 +112,6 @@
 	                                    <label>Invert ({{ filterFunctions.invert }})</label>
 	                                    <input type="range" class="form-control" step='0.1' min="0" max="2" v-model='filterFunctions.invert'>
 	                                </div>
-	                            </div>
-	                        </div>
-	                        <div class="card-footer text-muted">
-	                            <div class="form-group m-0">
-	                                <button class="btn btn-success" @click="download">Download</button>
-	                                <button type='button' class='btn btn-danger' @click='setToDefault()'>Reset</button>
 	                            </div>
 	                        </div>
 	                    </div>
