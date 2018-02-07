@@ -84,7 +84,7 @@
 	                                    <input type="range" class="form-control" step='0.1' min="0" max="1" v-model='filterFunctions.grayscale' :disabled='!image'>
 	                                </div>
 	                                <div class="form-group p-0">
-	                                    <label>Blur ({{ filterFunctions.blur }})</label>
+	                                    <label>Blur ({{ filterFunctions.blur }}px)</label>
 	                                    <input type="range" class="form-control" step='1' min="0" max="50" v-model='filterFunctions.blur' :disabled='!image'>
 	                                </div>
 	                                <div class="form-group p-0">
@@ -110,7 +110,7 @@
 	                                    <input type="range" class="form-control" step='0.1' min="0" max="10" v-model='filterFunctions.contrast' :disabled='!image'>
 	                                </div>
 	                                <div class="form-group p-0">
-	                                    <label>Hue-rotate ({{ filterFunctions.hueRotate }})</label>
+	                                    <label>Hue-rotate ({{ filterFunctions.hueRotate }}deg)</label>
 	                                    <input type="range" class="form-control" step='1' min="0" max="360" v-model='filterFunctions.hueRotate' :disabled='!image'>
 	                                </div>
 	                                <div class="form-group p-0">
