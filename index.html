@@ -213,10 +213,10 @@
 				img.src = this.image;
 				img.onload = function(){
 					ctx.drawImage(this, 0, 0, canvas.width, canvas.height);
-					const link = document.createElement('a');
-					link.href = canvas.toDataURL();
-					link.download = 'filtered.png';
-					link.click();
+					const anchor = document.createElement('a');
+					anchor.href = canvas.toDataURL();
+					anchor.download = 'filtered.png';
+					anchor.click();
 				};
 		    }
 		}
