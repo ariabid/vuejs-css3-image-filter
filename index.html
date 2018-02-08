@@ -8,7 +8,6 @@
         <!-- Bootstrap CSS -->
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
         <link href="https://netdna.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
-
         <title>Image filter with Vue.js and CSS3</title>
 		<style>
 			pre{
@@ -29,6 +28,12 @@
 				background: #f1f1f1;
 				cursor: not-allowed;
 			}
+			#copy-code{ position: relative; }
+			#copy-code .btn{
+				position: absolute;
+				top: 0;
+				right: 0;
+			 }
 			[v-clock{ display: none; }]
 		</style>
     </head>
@@ -76,8 +81,12 @@
 
 	                <div class="col-md-6 sticky-top">
 	                	<div class="card mb-2 bg-dark">
-            				<div class="card-body">
+            				<div class="card-body" id="copy-code">
                         		<pre>img: {<br>&nbsp;&nbsp;filter: {{filters.filter}}; <br>}</pre>
+                        		<button @click='textCopied = !textCopied' :disabled='!image' data-clipboard-target="#copy-code" class="btn btn-sm btn-dark">
+									<span v-if='textCopied'>Copied</span>
+									<span v-else='textCopied'>Copy code</span>
+                        		</button>
             				</div>
                 		</div>
 	                    <div class="card">
@@ -149,11 +158,21 @@
 			image: null,
 			filterFunctions: null,
 			width: 0,
-			height: 0
+			height: 0,
+			textCopied: false
 		},
 
 		created() {
 			this.filterFunctions = this.defaultValues();
+		},
+		watch: {
+			textCopied() {
+				setTimeout(function() {
+					if(this.textCopied == true) {
+						this.textCopied = false;
+					}
+				}.bind(this), 350);
+			}
 		},
 		computed: {
 			filters() {
@@ -236,6 +255,12 @@
 	});
 	</script>
 
-
+	<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+	<script src="https://cdn.jsdelivr.net/npm/clipboard@1/dist/clipboard.min.js"></script>
+	<script>
+		$(function(){
+		    new Clipboard('.btn');
+		});
+	</script>
   </body>
 </html>
