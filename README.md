@@ -1,4 +1,4 @@
-# CSS3 image filter with Vuejs 
+# CSS3 image filter with Vuejs
 
 A tiny app to apply css3 filter function to the images. Upload and apply filters easily.
 
@@ -15,6 +15,7 @@ Made with **Bootstrap 4** and **Vue.js**
 
 * [Bootstrap V4](https://getbootstrap.com/docs/4.0/getting-started/introduction/) Stable
 * [Vue.js](https://vuejs.org/) - Vue.js
+* [clipboard.js](https://clipboardjs.com) - clipboard.js
 
 ## Authors
 
