@@ -38,226 +38,121 @@
 		</style>
     </head>
   <body>
-	<div id='vueImageFilterApp'>
-        <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
-        	<a class="navbar-brand" href="#">Image filter with Vue.js and CSS3</a>
-			<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#appnav" aria-controls="appnav" aria-expanded="false" aria-label="Toggle navigation">
-				<span class="navbar-toggler-icon"></span>
-			</button>
-        </nav>
-        <section class="bg-light" id="about-us">
-            <div class="container">
-                <div class="row">
-                    <div class="col-md-10 offset-md-1 text-center my-5">
-                        <h1 class="display-3">CSS3 Filter with Vue.js</h2>
-                        <h2 class="h4 py-5">Syntax - <p> <code>.class-filter{ filter: &lt;filter-function&gt; [&lt;filter-function&gt;] }</code></p></h2>
-                        <a href="https://github.com/ariabid/vuejs-css3-image-filter/" class="btn btn-large btn-primary" title="CSS3 image filter with Vuejs">
-                            <i class="fa fa-code-fork"></i> fork on Github
-                        </a>
-                    </div>
-
+<div id='vueImageFilterApp'>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+    	<a class="navbar-brand" href="#">Image filter with Vue.js and CSS3</a>
+		<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#appnav" aria-controls="appnav" aria-expanded="false" aria-label="Toggle navigation">
+			<span class="navbar-toggler-icon"></span>
+		</button>
+    </nav>
+    <section class="bg-light" id="about-us">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-10 offset-md-1 text-center my-5">
+                    <h1 class="display-3">CSS3 Filter with Vue.js</h2>
+                    <h2 class="h4 py-5">Syntax - <p> <code>.class-filter{ filter: &lt;filter-function&gt; [&lt;filter-function&gt;] }</code></p></h2>
+                    <a href="https://github.com/ariabid/vuejs-css3-image-filter/" class="btn btn-large btn-primary" title="CSS3 image filter with Vuejs">
+                        <i class="fa fa-code-fork"></i> fork on <i class="fa fa-github"></i> Github
+                    </a>
                 </div>
+
             </div>
-        </section>
+        </div>
+    </section>
 
-        <section class="filter">
-            <div class="py-5 container">
-            	<div class="row align-items-start">
-                	<div class="col-md-6">
-                        <div class="card">
-                        	<div class="card-header">
-                                <div v-if="!image" class='form-group pt-3'>
-									<input type="file" @change="changeImage" class='form-control'>
-								</div>
-								<div v-else class='form-group m-0 clearfix'>
-									<button @click="image=null" class='btn btn-primary btn-sm'><i class='fa fa-file-image-o fa-fw'></i> New image</button>
-									<button class="btn btn-sm btn-success float-right" @click="download"><i class='fa fa-download fa-fw'></i> Download</button>
-								</div>
+    <section class="filter">
+        <div class="py-5 container">
+        	<div class="row align-items-start">
+            	<div class="col-md-6">
+                    <div class="card">
+                    	<div class="card-header">
+                            <div v-if="!image" class='form-group pt-3'>
+								<input type="file" @change="changeImage" class='form-control'>
 							</div>
+							<div v-else class='form-group m-0 clearfix'>
+								<button @click="image=null" class='btn btn-primary btn-sm'><i class='fa fa-file-image-o fa-fw'></i> New image</button>
+								<button class="btn btn-sm btn-success float-right" @click="download"><i class='fa fa-download fa-fw'></i> Download</button>
+							</div>
+						</div>
 
-                        	<!-- Image -->
-                        	<div v-show='image'>
-                        		<img ref='img' crossOrigin="Anonymous" id='image' :src="image" class='card-img-top' :style='filters'>
-                        	</div>
+                    	<!-- Image -->
+                    	<div v-show='image'>
+                    		<img ref='img' crossOrigin="Anonymous" id='image' :src="image" class='card-img-top' :style='filters'>
+                    	</div>
+                    </div>
+                </div>
+
+                <div class="col-md-6 sticky-top">
+                	<div class="card mb-2 bg-dark">
+        				<div class="card-body" id="copy-code">
+                    		<pre>img {<br>&nbsp;&nbsp;filter: {{filters.filter}}; <br>}</pre>
+                    		<button @click='textCopied = !textCopied' :disabled='!image' data-clipboard-target="#copy-code" class="btn btn-sm btn-dark">
+								<span v-if='textCopied'>Copied</span>
+								<span v-else='textCopied'>Copy code</span>
+                    		</button>
+        				</div>
+            		</div>
+                    <div class="card">
+                        <div class="card-header clearfix">
+                        	<h5 class="card-title float-left m-0">Adjust the filter</h5>
+                        	<button type='button' class='btn btn-danger btn-sm float-right' @click='setToDefault()' :disabled='!image'><i class='fa fa-undo fa-fw'></i> Reset</button>
+                        </div>
+                        <div class="card-body row">
+                            <div class="col-md-6" :data-filter-disabled='!image'>
+                                <div class="form-group p-0">
+                                    <label>Grayscale ({{ filterFunctions.grayscale }})</label>
+                                    <input type="range" class="form-control" step='0.1' min="0" max="1" v-model='filterFunctions.grayscale' :disabled='!image'>
+                                </div>
+                                <div class="form-group p-0">
+                                    <label>Blur ({{ filterFunctions.blur }}px)</label>
+                                    <input type="range" class="form-control" step='1' min="0" max="50" v-model='filterFunctions.blur' :disabled='!image'>
+                                </div>
+                                <div class="form-group p-0">
+                                    <label>Sepia ({{ filterFunctions.sepia }})</label>
+                                    <input type="range" class="form-control" step='0.1' min="0" max="1" v-model='filterFunctions.sepia' :disabled='!image'>
+                                </div>
+                                <div class="form-group p-0">
+                                    <label>Saturate ({{ filterFunctions.saturate }})</label>
+                                    <input type="range" class="form-control" step='0.1' min="0" max="2" v-model='filterFunctions.saturate' :disabled='!image'>
+                                </div>
+                                <div class="form-group p-0">
+                                    <label>Opacity ({{ filterFunctions.opacity }})</label>
+                                    <input type="range" class="form-control" step='0.1' min="0" max="1" v-model='filterFunctions.opacity' :disabled='!image'>
+                                </div>
+                            </div>
+                            <div class="col-md-6" :data-filter-disabled='!image'>
+                                <div class="form-group p-0">
+                                    <label>Brightness ({{ filterFunctions.brightness }})</label>
+                                    <input type="range" class="form-control" step='0.1' min="0" max="5" v-model='filterFunctions.brightness' :disabled='!image'>
+                                </div>
+                                <div class="form-group p-0">
+                                    <label>Contrast ({{ filterFunctions.contrast }})</label>
+                                    <input type="range" class="form-control" step='0.1' min="0" max="10" v-model='filterFunctions.contrast' :disabled='!image'>
+                                </div>
+                                <div class="form-group p-0">
+                                    <label>Hue-rotate ({{ filterFunctions.hueRotate }}deg)</label>
+                                    <input type="range" class="form-control" step='1' min="0" max="360" v-model='filterFunctions.hueRotate' :disabled='!image'>
+                                </div>
+                                <div class="form-group p-0">
+                                    <label>Invert ({{ filterFunctions.invert }})</label>
+                                    <input type="range" class="form-control" step='0.1' min="0" max="2" v-model='filterFunctions.invert' :disabled='!image'>
+                                </div>
+                            </div>
                         </div>
                     </div>
+                </div>
+       	 	</div>
+   		</div>
+	</section>
 
-	                <div class="col-md-6 sticky-top">
-	                	<div class="card mb-2 bg-dark">
-            				<div class="card-body" id="copy-code">
-                        		<pre>img {<br>&nbsp;&nbsp;filter: {{filters.filter}}; <br>}</pre>
-                        		<button @click='textCopied = !textCopied' :disabled='!image' data-clipboard-target="#copy-code" class="btn btn-sm btn-dark">
-									<span v-if='textCopied'>Copied</span>
-									<span v-else='textCopied'>Copy code</span>
-                        		</button>
-            				</div>
-                		</div>
-	                    <div class="card">
-	                        <div class="card-header clearfix">
-	                        	<h5 class="card-title float-left m-0">Adjust the filter</h5>
-	                        	<button type='button' class='btn btn-danger btn-sm float-right' @click='setToDefault()' :disabled='!image'><i class='fa fa-undo fa-fw'></i> Reset</button>
-	                        </div>
-	                        <div class="card-body row">
-	                            <div class="col-md-6" :data-filter-disabled='!image'>
-	                                <div class="form-group p-0">
-	                                    <label>Grayscale ({{ filterFunctions.grayscale }})</label>
-	                                    <input type="range" class="form-control" step='0.1' min="0" max="1" v-model='filterFunctions.grayscale' :disabled='!image'>
-	                                </div>
-	                                <div class="form-group p-0">
-	                                    <label>Blur ({{ filterFunctions.blur }}px)</label>
-	                                    <input type="range" class="form-control" step='1' min="0" max="50" v-model='filterFunctions.blur' :disabled='!image'>
-	                                </div>
-	                                <div class="form-group p-0">
-	                                    <label>Sepia ({{ filterFunctions.sepia }})</label>
-	                                    <input type="range" class="form-control" step='0.1' min="0" max="1" v-model='filterFunctions.sepia' :disabled='!image'>
-	                                </div>
-	                                <div class="form-group p-0">
-	                                    <label>Saturate ({{ filterFunctions.saturate }})</label>
-	                                    <input type="range" class="form-control" step='0.1' min="0" max="2" v-model='filterFunctions.saturate' :disabled='!image'>
-	                                </div>
-	                                <div class="form-group p-0">
-	                                    <label>Opacity ({{ filterFunctions.opacity }})</label>
-	                                    <input type="range" class="form-control" step='0.1' min="0" max="1" v-model='filterFunctions.opacity' :disabled='!image'>
-	                                </div>
-	                            </div>
-	                            <div class="col-md-6" :data-filter-disabled='!image'>
-	                                <div class="form-group p-0">
-	                                    <label>Brightness ({{ filterFunctions.brightness }})</label>
-	                                    <input type="range" class="form-control" step='0.1' min="0" max="5" v-model='filterFunctions.brightness' :disabled='!image'>
-	                                </div>
-	                                <div class="form-group p-0">
-	                                    <label>Contrast ({{ filterFunctions.contrast }})</label>
-	                                    <input type="range" class="form-control" step='0.1' min="0" max="10" v-model='filterFunctions.contrast' :disabled='!image'>
-	                                </div>
-	                                <div class="form-group p-0">
-	                                    <label>Hue-rotate ({{ filterFunctions.hueRotate }}deg)</label>
-	                                    <input type="range" class="form-control" step='1' min="0" max="360" v-model='filterFunctions.hueRotate' :disabled='!image'>
-	                                </div>
-	                                <div class="form-group p-0">
-	                                    <label>Invert ({{ filterFunctions.invert }})</label>
-	                                    <input type="range" class="form-control" step='0.1' min="0" max="2" v-model='filterFunctions.invert' :disabled='!image'>
-	                                </div>
-	                            </div>
-	                        </div>
-	                    </div>
-	                </div>
-           	 	</div>
-       		</div>
-    	</section>
-
-        <footer class="footer bg-dark text-white py-3">
-            <div class="text-center">
-                &copy; <?=date('Y');?>, www.coderomeos.org
-            </div>
-        </footer>
-	</div>
+    <footer class="footer bg-dark text-white py-3">
+        <div class="text-center">
+            &copy; <?=date('Y');?>, www.coderomeos.org
+        </div>
+    </footer>
 
 	<script src="https://cdn.jsdelivr.net/npm/vue@2.5.13/dist/vue.js"></script>
-
-    <script>
-	vueImageFilterApp = new Vue({
-		el: "#vueImageFilterApp",
-		data: {
-			image: null,
-			filterFunctions: null,
-			width: 0,
-			height: 0,
-			textCopied: false
-		},
-
-		created() {
-			this.filterFunctions = this.defaultValues();
-		},
-		watch: {
-			textCopied() {
-				setTimeout(function() {
-					if(this.textCopied == true) {
-						this.textCopied = false;
-					}
-				}.bind(this), 350);
-			}
-		},
-		computed: {
-			filters() {
-				var filterString = "";
-				var defaultValues = this.defaultValues();
-				for (var filterFunc in this.filterFunctions) {
-				  	if(this.filterFunctions[filterFunc] !== defaultValues[filterFunc])
-				  	{
-				  		if(filterFunc == 'hueRotate') {
-				  			filterString = filterString + "hue-rotate(" + this.filterFunctions[filterFunc] + "deg) ";
-				  		}
-				  		else if(filterFunc == 'blur') {
-				  			filterString = filterString + filterFunc + "(" + this.filterFunctions[filterFunc] + "px) ";
-				  		}
-				  		else {
-				  			filterString = filterString + filterFunc + "(" + this.filterFunctions[filterFunc] + ") ";
-				  		}
-				  	}
-				}
-
-				return {filter: filterString};
-			}
-		},
-		methods: {
-			setToDefault() {
-				this.filterFunctions = this.defaultValues()
-			},
-			defaultValues() {
-				return {
-					grayscale: 0,
-					sepia: 0,
-					saturate: 1,
-					hueRotate: 0,
-					invert: 0,
-					brightness: 1,
-					contrast: 1,
-					blur: 0,
-					opacity: 1
-				}
-			},
-			changeImage(e) {
-				var files = e.target.files || e.dataTransfer.files;
-  				if (!files.length)
-    				return;
-  				this.loadImage(files[0]);
-			},
-			loadImage(file) {
-  				var reader = new FileReader();
-  				var image = new Image();
-
-  				reader.onload = (e) => {
-    				this.image = e.target.result;
-    				image.src = e.target.result;
-  				};
-  				reader.readAsDataURL(file);
-  				image.onload = function() {
-  					document.getElementById("image").setAttribute("data-original-width", this.width);
-  					document.getElementById("image").setAttribute("data-original-height", this.height);
-  				}
-			},
-			download() {
-				const canvas = document.createElement('canvas');
-				canvas.width = document.getElementById("image").getAttribute("data-original-width");
-  				canvas.height = document.getElementById("image").getAttribute("data-original-height");
-
-				const ctx = canvas.getContext('2d');
-				ctx.filter = this.filters.filter;
-
-				var img = new Image();
-				img.src = this.image;
-				img.onload = function(){
-					ctx.drawImage(this, 0, 0, canvas.width, canvas.height);
-					const anchor = document.createElement('a');
-					anchor.href = canvas.toDataURL();
-					anchor.download = 'filtered.png';
-					anchor.click();
-				};
-		    }
-		}
-	});
-	</script>
-
+    <script src='app.js'></script>
 	<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
 	<script src="https://cdn.jsdelivr.net/npm/clipboard@1/dist/clipboard.min.js"></script>
 	<script>
@@ -265,5 +160,8 @@
 		    new Clipboard('.btn');
 		});
 	</script>
-  </body>
+
+
+</div>
+ </body>
 </html>
