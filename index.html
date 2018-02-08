@@ -85,7 +85,7 @@
 	                <div class="col-md-6 sticky-top">
 	                	<div class="card mb-2 bg-dark">
             				<div class="card-body" id="copy-code">
-                        		<pre>img: {<br>&nbsp;&nbsp;filter: {{filters.filter}}; <br>}</pre>
+                        		<pre>img {<br>&nbsp;&nbsp;filter: {{filters.filter}}; <br>}</pre>
                         		<button @click='textCopied = !textCopied' :disabled='!image' data-clipboard-target="#copy-code" class="btn btn-sm btn-dark">
 									<span v-if='textCopied'>Copied</span>
 									<span v-else='textCopied'>Copy code</span>
