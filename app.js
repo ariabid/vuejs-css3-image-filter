@@ -5,6 +5,7 @@ vueImageFilterApp = new Vue({
 		filterFunctions: null,
 		width: 0,
 		height: 0,
+		selectedPreset: null,
 		textCopied: false
 	},
 
@@ -23,27 +24,35 @@ vueImageFilterApp = new Vue({
 	},
 	computed: {
 		filters() {
+			return this.makeFilter();
+		}
+	},
+	methods: {
+		makeFilter(filterSet) {
+
+			if(!filterSet) {
+				filterSet = this.filterFunctions;
+			}
+
 			var filterString = "";
 			var defaultValues = this.defaultValues();
-			for (var filterFunc in this.filterFunctions) {
-			  	if(this.filterFunctions[filterFunc] !== defaultValues[filterFunc])
+			for (var filterFunc in filterSet) {
+			  	if(filterSet[filterFunc] !== defaultValues[filterFunc])
 			  	{
 			  		if(filterFunc == 'hueRotate') {
-			  			filterString = filterString + "hue-rotate(" + this.filterFunctions[filterFunc] + "deg) ";
+			  			filterString = filterString + "hue-rotate(" + filterSet[filterFunc] + "deg) ";
 			  		}
 			  		else if(filterFunc == 'blur') {
-			  			filterString = filterString + filterFunc + "(" + this.filterFunctions[filterFunc] + "px) ";
+			  			filterString = filterString + filterFunc + "(" + filterSet[filterFunc] + "px) ";
 			  		}
 			  		else {
-			  			filterString = filterString + filterFunc + "(" + this.filterFunctions[filterFunc] + ") ";
+			  			filterString = filterString + filterFunc + "(" + filterSet[filterFunc] + ") ";
 			  		}
 			  	}
 			}
 
 			return {filter: filterString};
-		}
-	},
-	methods: {
+		},
 		setToDefault() {
 			this.filterFunctions = this.defaultValues()
 		},
@@ -67,23 +76,40 @@ vueImageFilterApp = new Vue({
 				this.loadImage(files[0]);
 		},
 		loadImage(file) {
-				var reader = new FileReader();
-				var image = new Image();
+			var reader = new FileReader();
+			var image = new Image();
 
-				reader.onload = (e) => {
-				this.image = e.target.result;
-				image.src = e.target.result;
-				};
-				reader.readAsDataURL(file);
-				image.onload = function() {
-					document.getElementById("image").setAttribute("data-original-width", this.width);
-					document.getElementById("image").setAttribute("data-original-height", this.height);
-				}
+			reader.onload = (e) => {
+			this.image = e.target.result;
+			image.src = e.target.result;
+			};
+			reader.readAsDataURL(file);
+			image.onload = function() {
+				document.getElementById("image").setAttribute("data-original-width", this.width);
+				document.getElementById("image").setAttribute("data-original-height", this.height);
+			}
+		},
+		presets() {
+			return {
+				brannes: {name: 'Brannes', filterSet: {sepia: 0.5, contrast: 1.4}},
+				inkwell: {name: 'Inkwell', filterSet: {sepia: 0.3, contrast: 1.1, brightness: 1.1, grayscale: 1}},
+				lofi: {name: 'Lo-Fi', filterSet: {saturate: 1.1, contrast: 1.5}},
+				moon: {name: 'Moon', filterSet: {grayscale: 1, contrast: 1.1, brightness: 1.1}},
+				nashville: {name: 'Nashville', filterSet: {sepia: 0.2, contrast: 1.2, brightness: 1.05, saturate: 1.2}},
+				toaster: {name: 'Toaster', filterSet: {contrast: 1.5, brightness: 0.9}},
+				walden: {name: 'Walden', filterSet: {brightness:1.1, hueRotate: '-10', sepia: 0.3, saturate: 1.6}},
+			}
+		},
+		selectAndLoadPreset(preset) {
+			if(preset) {
+				this.filterFunctions = preset.filterSet;
+				this.selectedPreset = preset;
+			}
 		},
 		download() {
 			const canvas = document.createElement('canvas');
 			canvas.width = document.getElementById("image").getAttribute("data-original-width");
-				canvas.height = document.getElementById("image").getAttribute("data-original-height");
+			canvas.height = document.getElementById("image").getAttribute("data-original-height");
 
 			const ctx = canvas.getContext('2d');
 			ctx.filter = this.filters.filter;
