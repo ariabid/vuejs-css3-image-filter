@@ -97,7 +97,9 @@ vueImageFilterApp = new Vue({
 				moon: {name: 'Moon', filterSet: {grayscale: 1, contrast: 1.1, brightness: 1.1}},
 				nashville: {name: 'Nashville', filterSet: {sepia: 0.2, contrast: 1.2, brightness: 1.05, saturate: 1.2}},
 				toaster: {name: 'Toaster', filterSet: {contrast: 1.5, brightness: 0.9}},
-				walden: {name: 'Walden', filterSet: {brightness:1.1, hueRotate: '-10', sepia: 0.3, saturate: 1.6}},
+				walden: {name: 'Walden', filterSet: {brightness:1.1, hueRotate: '-10', sepia: .3, saturate: 1.6}},
+				willow: {name: 'Willow', filterSet: {grayscale: 0.5, contrast: 0.95, brightness: 0.9}},
+				xpro2: {name: 'X-pro II', filterSet: {sepia: 0.3}},
 			}
 		},
 		selectAndLoadPreset(preset) {
