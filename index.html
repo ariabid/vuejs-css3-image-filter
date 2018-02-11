@@ -38,6 +38,12 @@
 		 	height: 540px;
 		 	overflow-y: auto;
 		 }
+		 .card-presets .card > .card-body {
+		 	overflow: hidden
+		 }
+		 .card-presets img {
+		 	max-height: 100px;
+		 }
 		[v-clock{ display: none; }]
 	</style>
 </head>
@@ -74,12 +80,14 @@
 						<div class="card-body">
 							<!-- Image -->
 	                    	<div v-show='image'>
-	                    		<div class="card mb-2"
+	                    		<div class="card mb-2 text-center"
 	                    			v-for='preset in presets()'
 	                    			@click='selectAndLoadPreset(preset)'
 	                    			:class="[(selectedPreset && (selectedPreset.name==preset.name)) ? 'text-white bg-primary' : '']">
-	                    			<img crossOrigin="Anonymous" :src="image" class='card-img-top' :style='makeFilter(preset.filterSet)'>
-	                    			<div class="card-footer">{{ preset.name }}</div>
+	                    			<div class="card-body px-1 py-2">
+		                    			<img crossOrigin="Anonymous" :src="image" class='img-fluid' :style='makeFilter(preset.filterSet)'>
+	                    			</div>
+		                    		<div class="card-footer px-2 py-1">{{ preset.name }}</div>
 	                    		</div>
 	                    	</div>
 						</div>
@@ -98,7 +106,7 @@
 						</div>
 
                     	<!-- Image -->
-                    	<div v-show='image'>
+                    	<div v-show='image' class='card-body px-2 py-2'>
                     		<img ref='img' crossOrigin="Anonymous" id='image' :src="image" class='card-img-bottom' :style='filters' data-original-width='760' data-original-height='476'>
                     	</div>
                     </div>
