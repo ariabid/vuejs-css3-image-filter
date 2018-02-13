@@ -1,0 +1,40 @@
+pre{
+	color: rgb(76, 186, 135);
+	font-size: 18px;
+	font-weight: bolder;
+}
+
+input[type=range] {
+	padding: 0;
+	border: none;
+}
+
+[data-filter-disabled=true],
+button[disabled=true],
+button[disabled=disabled],
+[data-filter-disabled=true] input {
+	background: #f1f1f1;
+	cursor: not-allowed;
+}
+#copy-code{ position: relative; }
+#copy-code .btn{
+	position: absolute;
+	top: 0;
+	right: 0;
+ }
+ .card-presets > .card-body{
+ 	height: 540px;
+ 	overflow-y: auto;
+ }
+ #image {
+ 	transition: 0.6s;
+ }
+ .card-presets .card {
+ 	transition: 0.3s;
+ }
+ .card-presets .card > .card-body {
+ 	overflow: hidden
+ }
+ .card-presets img {
+ 	max-height: 100px;
+ }
