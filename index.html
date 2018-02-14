@@ -7,7 +7,8 @@
 
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
-    <link href="https://netdna.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.2.1/assets/owl.carousel.min.css" rel="stylesheet">
+    <link href="style.css" rel="stylesheet">
     <title>Image filter with Vue.js and CSS3</title>
 	<style>
 		[v-clock{ display: none; }]
@@ -28,57 +29,54 @@
                     <h1 class="display-3">CSS3 Filter with Vue.js</h2>
                     <h2 class="h4 py-1">Syntax - <p> <code>.class-filter{ filter: &lt;filter-function&gt; [&lt;filter-function&gt;] }</code></p></h2>
                     <a href="https://github.com/ariabid/vuejs-css3-image-filter/" class="btn btn-large btn-primary" title="CSS3 image filter with Vuejs">
-                        <i class="fa fa-code-fork"></i> fork on <i class="fa fa-github"></i> Github
+                        <i class="fa fa-code-branch"></i> fork on <i class="fab fa-github"></i> Github
                     </a>
                 </div>
             </div>
         </div>
     </section>
-
     <section class="filter">
-        <div class="py-5 container-fluid">
+        <div class="py-5 container">
         	<div class="row align-items-start">
-            	<div class="col-md-2 sticky-top">
-            		<div class="card card-presets">
-						<div class="card-header">
-							<h5 class="card-title float-left m-0">Presets</h5>
-						</div>
-						<div class="card-body">
-							<!-- Image -->
-	                    	<div v-show='image'>
-	                    		<div class="card mb-2 text-center"
-	                    			v-for='preset in presets()'
-	                    			@click='selectAndLoadPreset(preset)'
-	                    			:class="[(selectedPreset && (selectedPreset.name==preset.name)) ? 'text-white bg-primary' : '']">
-	                    			<div class="card-body px-1 py-2">
-		                    			<img crossOrigin="Anonymous" :src="image" class='img-fluid' :style='makeFilter(preset.filterSet)'>
-	                    			</div>
-		                    		<div class="card-footer px-2 py-1">{{ preset.name }}</div>
-	                    		</div>
-	                    	</div>
-						</div>
-					</div>
-            	</div>
-            	<div class="col-md-6">
+            	<div class="col-md-7">
                     <div class="card">
                     	<div class="card-header">
                             <div v-if="!image" class='form-group pt-3'>
 								<input type="file" @change="changeImage" class='form-control'>
 							</div>
 							<div v-else class='form-group m-0 clearfix'>
-								<button @click="image=null" class='btn btn-primary btn-sm'><i class='fa fa-file-image-o fa-fw'></i> New image</button>
+								<button @click="image=null" class='btn btn-primary btn-sm'><i class='fa fa-image fa-fw'></i> New image</button>
 								<button class="btn btn-sm btn-success float-right" @click="download"><i class='fa fa-download fa-fw'></i> Download</button>
 							</div>
 						</div>
 
                     	<!-- Image -->
-                    	<div v-show='image' class='card-body px-2 py-2'>
-                    		<img ref='img' crossOrigin="Anonymous" id='image' :src="image" class='card-img-bottom' :style='filters' data-original-width='760' data-original-height='476'>
+                    	<div v-show='image' class='card-body px-2 py-2 text-center'>
+                    		<img ref='img' crossOrigin="Anonymous" id='image' :src="image" class='img-fluid' :style='filters' data-original-width='760' data-original-height='476'>
+                    	</div>
+                    	<div v-show='image' class='card-footer px-0 py-0'>
+                    		<div class="card bg-dark text-white card-presets">
+								<div class="card-header py-1">
+									<h5 class="card-title m-0"><small>Presets</small></h5>
+								</div>
+								<div class="card-body py-1 owl-carousel owl-theme" v-show='image'>
+					        		<div class="card text-white mb-2 text-center"
+					        			v-for='preset in presets()'
+					        			@click='selectAndLoadPreset(preset)'
+					        			:class="[(selectedPreset && (selectedPreset.name==preset.name)) ? 'bg-primary' : 'bg-secondary']">
+					        			<div class="card-body px-1 py-1 text-center">
+					            			<img crossOrigin="Anonymous" :src="image" class='' :style='makeFilter(preset.filterSet)'>
+					        			</div>
+					            		<div class="card-footer px-2 py-0"><small>{{ preset.name }}</small></div>
+					        		</div>
+
+								</div>
+							</div>
                     	</div>
                     </div>
                 </div>
 
-                <div class="col-md-4 sticky-top">
+                <div class="col-md-5 sticky-top">
                 	<div class="card mb-2 bg-dark">
         				<div class="card-body" id="copy-code">
                     		<pre>img {<br>&nbsp;&nbsp;filter: {{filters.filter}}; <br>}</pre>
@@ -139,6 +137,8 @@
                 </div>
        	 	</div>
    		</div>
+
+
 	</section>
 
     <footer class="footer bg-dark text-white py-3">
@@ -151,9 +151,33 @@
 <script src='app.js'></script>
 <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
 <script src="https://cdn.jsdelivr.net/npm/clipboard@1/dist/clipboard.min.js"></script>
+<script defer src="https://use.fontawesome.com/releases/v5.0.6/js/all.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.2.1/owl.carousel.min.js"></script>
 <script>
 	$(function(){
 	    new Clipboard('.btn');
+	    $('.owl-carousel').owlCarousel({
+		    loop:true,
+		    margin:10,
+		    nav:true,
+		    navText: ['<i class="fas fa-chevron-circle-left"></i>', '<i class="fas fa-chevron-circle-right"></i>'],
+		    responsiveClass:true,
+		    responsive:{
+		        0:{
+		            items:3,
+		            nav:true
+		        },
+		        600:{
+		            items:6,
+		            nav:false
+		        },
+		        1000:{
+		            items:5,
+		            nav:true,
+		            loop:false
+		        }
+		    }
+		})
 	});
 </script>
 </body>
