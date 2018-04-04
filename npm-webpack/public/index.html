@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+	<title>Image filter with Vue.js and CSS3</title>
+	<!-- Bootstrap CSS -->
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
+	crossorigin="anonymous">
+	<link href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.2.1/assets/owl.carousel.min.css" rel="stylesheet">
+	<link rel="shortcut icon" href="<%= webpackConfig.output.publicPath %>favicon.ico">
+	<title>vuejs-css3-image-filter</title>
+	<style>
+	v-clock {
+		display: none;
+	}
+	</style>
+</head>
+<body>
+	<noscript>
+		<strong>We're sorry but vuejs-css3-image-filter doesn't work properly without JavaScript enabled. Please enable it to continue.</strong>
+	</noscript>
+	<nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+		<a class="navbar-brand" href="#">Image filter with Vue.js and CSS3</a>
+		<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#appnav" aria-controls="appnav" aria-expanded="false"
+		 aria-label="Toggle navigation">
+			<span class="navbar-toggler-icon"></span>
+		</button>
+	</nav>
+	<section class="bg-light" id="about-us">
+		<div class="container">
+			<div class="row">
+				<div class="col-md-10 offset-md-1 text-center my-4">
+					<h1 class="display-3">CSS3 Filter with Vue.js</h2>
+						<h2 class="h4 py-1">Syntax -
+							<p>
+								<code>.class-filter{ filter: &lt;filter-function&gt; [&lt;filter-function&gt;] }</code>
+							</p>
+						</h2>
+						<a href="https://github.com/ariabid/vuejs-css3-image-filter/" class="btn btn-large btn-primary" title="CSS3 image filter with Vuejs">
+							<i class="fa fa-code-branch"></i> fork on
+							<i class="fab fa-github"></i> Github
+						</a>
+				</div>
+			</div>
+		</div>
+	</section>
+	<div id="app"></div>
+	<!-- built files will be auto injected -->
+	<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+	 crossorigin="anonymous"></script>
+	<script src="https://cdn.jsdelivr.net/npm/clipboard@1/dist/clipboard.min.js"></script>
+	<script defer src="https://use.fontawesome.com/releases/v5.0.6/js/all.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.2.1/owl.carousel.min.js"></script>
+	<script>
+		$(function () {
+			new Clipboard('.btn');
+			$('.owl-carousel').owlCarousel({
+				loop: true,
+				margin: 10,
+				nav: true,
+				navText: ['<i class="fas fa-chevron-circle-left"></i>', '<i class="fas fa-chevron-circle-right"></i>'],
+				responsiveClass: true,
+				responsive: {
+					0: {
+						items: 3,
+						nav: true
+					},
+					600: {
+						items: 6,
+						nav: false
+					},
+					1000: {
+						items: 5,
+						nav: true,
+						loop: false
+					}
+				}
+			})
+		});
+	</script>
+</body>
+</html>
