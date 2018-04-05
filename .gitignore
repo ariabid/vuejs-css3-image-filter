@@ -1,16 +1,15 @@
 .DS_Store
-/npm-webpack/.DS_Store
-/npm-webpack/node_modules
-/npm-webpack/dist
+node_modules
+dist
 
 # local env files
 .env.local
 .env.*.local
 
 # Log files
-/npm-webpack/npm-debug.log*
-/npm-webpack/yarn-debug.log*
-/npm-webpack/yarn-error.log*
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
 
 # Editor directories and files
 .idea
