@@ -108,8 +108,13 @@
 
 <script>
 import DefaultImage from './assets/default.jpg'
+import Presets from './components/Presets.vue'
+
 export default {
 	name: 'ImageFilterApp',
+	components: {
+		Presets
+	},
 	data() {
 		return {
 			image: null,
@@ -191,8 +196,8 @@ export default {
 			var image = new Image();
 
 			reader.onload = (e) => {
-			this.image = e.target.result;
-			image.src = e.target.result;
+				this.image = e.target.result;
+				image.src = e.target.result;
 			};
 			reader.readAsDataURL(file);
 			image.onload = function() {
